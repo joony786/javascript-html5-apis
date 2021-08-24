@@ -57,6 +57,13 @@ const init = () => {
         e.preventDefault();
     })
 
+    dropZone.addEventListener('drop',(e)=>{
+        console.log('drop');
+        e.target.classList.remove('active');
+        e.preventDefault();
+        e.stopPropagation();
+    })
+
 }
 
 
