@@ -32,14 +32,27 @@ app.innerHTML = `<h1>JavaScript HTML5 APIs</h1>
     background: #f1f2f5
 }
 .active {
-    background: #ce1
+    background: #ebfff6;
+    border: 2px dashed #24b373;
 }
 </style>
 `;
 
-const init = () => {}
+const init = () => {
+    const dropZone = document.querySelector('.dropzone')
+    dropZone.addEventListener('dragenter',(e)=>{
+        e.dataTransfer.dropEffect = 'move'
+        e.target.classList.add('active');
+        console.log('DragEnter: ',e);
+    })
+    dropZone.addEventListener('dragleave',(e)=>{
+        e.target.classList.remove('active');
+        console.log('DragLeave: ',e);
+    })
 
-console.dir(document.createElement('div'))
+}
+
+
 
 if('draggable' in document.createElement('div')){
     init()
