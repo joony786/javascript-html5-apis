@@ -5,6 +5,7 @@ app.innerHTML = `<h1>JavaScript HTML5 APIs</h1>
 <div class='uploader'> 
     <h1>  upload your files 🌟 <h1>
 <div class='dropzone'> 📁 drag to upload </div> 
+<div class='list'></div>
 </div>
 
 <style>
@@ -40,7 +41,8 @@ app.innerHTML = `<h1>JavaScript HTML5 APIs</h1>
 
 const init = () => {
     const dropZone = document.querySelector('.dropzone');
-   
+    const list = document.querySelector('.list');
+    
 
     dropZone.addEventListener('dragenter',(e)=>{    
         e.target.classList.add('active');
@@ -62,10 +64,41 @@ const init = () => {
     function allowedFiles(file) {
         return ['image/png','image/jpeg','image/svg+xml'].includes(file.type)
     }
+    function formatBytes(bytes, decimals = 2) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        console.log(i);
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    }
+    function previewFiles(file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        const size = file.size/1024
+        reader.addEventListener('load',(e)=>{
+            const div = document.createElement('div')
+            div.innerHTML =`
+            <div style="display:flex;">
+                <img
+                    src="${e.target.result}"
+                    alt="${file.name}"
+                    style="width: 30px;margin-right:10px; margin-top: 1rem  "
+                    />
+                    <p>${file.name}</p> <span> ${formatBytes(size)}</span>
+            </div>
+            `
+            list.append(div)
+        })
+        
+    }
 
     function fileHandler(file) {
         const files = [...file].filter(allowedFiles)
         console.log(files);
+        files.forEach(previewFiles)
     }
 
     dropZone.addEventListener('drop',(e)=>{
