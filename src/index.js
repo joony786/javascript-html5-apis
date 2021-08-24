@@ -41,13 +41,20 @@ app.innerHTML = `<h1>JavaScript HTML5 APIs</h1>
 const init = () => {
     const dropZone = document.querySelector('.dropzone')
     dropZone.addEventListener('dragenter',(e)=>{
-        e.dataTransfer.dropEffect = 'move'
+        
         e.target.classList.add('active');
         console.log('DragEnter: ',e);
     })
     dropZone.addEventListener('dragleave',(e)=>{
         e.target.classList.remove('active');
         console.log('DragLeave: ',e);
+    })
+
+    dropZone.addEventListener('dragover',(e)=>{
+        console.log(e.dataTransfer);
+        e.dataTransfer.dropEffect = 'move'
+        console.log('drag....');
+        e.preventDefault();
     })
 
 }
