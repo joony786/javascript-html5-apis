@@ -59,18 +59,28 @@ const init = () => {
 
     })
 
+    function allowedFiles(file) {
+        return ['image/png','image/jpeg','image/svg+xml'].includes(file.type)
+    }
+
+    function fileHandler(file) {
+        const files = [...file].filter(allowedFiles)
+        console.log(files);
+    }
+
     dropZone.addEventListener('drop',(e)=>{
         console.log('drop');
         e.target.classList.remove('active');
         e.preventDefault();
         e.stopPropagation();
         const { files } = e.dataTransfer;
-        console.log(files);
+        fileHandler(files)
     })
 
 }
 
-
+document.addEventListener('dragover',(e)=>e.preventDefault());
+document.addEventListener('drop',(e)=>e.preventDefault());
 
 if('draggable' in document.createElement('div')){
     init()
