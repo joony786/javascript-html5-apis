@@ -94,11 +94,18 @@ const init = () => {
         })
         
     }
+    function fileUpload(file) {
+        const formData = new FormData();
+        [...file].forEach((file)=>formData.append(file.name,file))
+        console.log([...formData.entries()]);
+        
+    }
 
     function fileHandler(file) {
         const files = [...file].filter(allowedFiles)
         console.log(files);
         files.forEach(previewFiles)
+        fileUpload(files)
     }
 
     dropZone.addEventListener('drop',(e)=>{
