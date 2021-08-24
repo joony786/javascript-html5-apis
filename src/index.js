@@ -3,8 +3,8 @@ import '../assets/css/style.css';
 const app = document.getElementById('app');
 app.innerHTML = `<h1>JavaScript HTML5 APIs</h1> 
 <div class='uploader'> 
-<div id='source' class='dragme' draggable='true'></div>
-<div class='dropzone'> drag here!</div> 
+    <h1>  upload your files 🌟 <h1>
+<div class='dropzone'> 📁 drag to upload </div> 
 </div>
 
 <style>
@@ -40,11 +40,7 @@ app.innerHTML = `<h1>JavaScript HTML5 APIs</h1>
 
 const init = () => {
     const dropZone = document.querySelector('.dropzone');
-    const dragme = document.querySelector('.dragme');
-
-    dragme.addEventListener('dragstart',(e)=>{
-        e.dataTransfer.setData('text/plain',e.target.id);
-    })
+   
 
     dropZone.addEventListener('dragenter',(e)=>{    
         e.target.classList.add('active');
@@ -66,11 +62,10 @@ const init = () => {
     dropZone.addEventListener('drop',(e)=>{
         console.log('drop');
         e.target.classList.remove('active');
-        const id = e.dataTransfer.getData('text/plain');
-        const element = document.getElementById(id);
-        dropZone.append(element);
         e.preventDefault();
         e.stopPropagation();
+        const { files } = e.dataTransfer;
+        console.log(files);
     })
 
 }
@@ -80,4 +75,3 @@ const init = () => {
 if('draggable' in document.createElement('div')){
     init()
 }
-

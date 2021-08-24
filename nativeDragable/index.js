@@ -1,3 +1,4 @@
+
 import '../assets/css/style.css';
 
 const app = document.getElementById('app');
@@ -80,4 +81,7 @@ const init = () => {
 if('draggable' in document.createElement('div')){
     init()
 }
+
+
+
 
